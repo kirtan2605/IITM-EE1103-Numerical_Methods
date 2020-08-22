@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>	
-//comment
+
 int main()
 {	int n,j=0,i=0,k=0;
 	FILE *ptr;
