@@ -1,0 +1,60 @@
+#include <stdio.h>
+#include <stdlib.h>	
+
+int main()
+{	int n,j=0,i=0,k=0;
+	FILE *ptr;
+	ptr=fopen("data.txt","r");
+	if(ptr==NULL)
+	{	printf("Error: File doesnt exist\n");
+		exit(1);
+	}
+
+	
+	
+    while((n=fgetc(ptr))!=EOF)
+    { 
+    	if(k==0&&(char)n!=' '&&(char)n!='\n') //Loop to count Field
+				i++;
+    j++;   //To find number of times the loop is run	
+
+    	if(((char)n)=='\n') //To stop counting of fields after line changes
+    		{k++;}  //To exit Field counting Loop
+
+	}
+	int NF=i,NR=k;
+	printf("Number of fields is %d\n",NF);
+	printf("Number of rows is %d\n",NR);
+	printf("While loop runs %d times\n",j);
+	fclose(ptr);
+	printf("\nFile is Closed \n");
+	FILE* fptr;
+	int sum[NF],d=1;
+	for(int g=1;g<=NF;g++)
+	{sum[g]=0;}
+	fptr=fopen("data.txt","r");
+	 while((n=fgetc(fptr))!=EOF)
+    {   char ch= (char)n;
+    	//printf("%c",ch);
+    	sum[d]=sum[d]+(int)ch;
+    	if((char)n!=' '&&(char)n!='\n') //Loop to count Field
+				d++;
+    j++;   //To find number of times the loop is run	
+
+    	if(((char)n)=='\n') //To stop counting of fields after line changes
+    		{d=1;}  //To exit Field counting Loop
+
+	}
+
+	for(int g=1;g<=NF;g++)
+	{
+		printf("Sum of Field %d is %d\n",g,sum[g]);
+
+	}
+
+	//const int system();
+	//system("cat data.txt");
+	
+	
+	return 0;
+}
