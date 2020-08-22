@@ -1,10 +1,10 @@
-/***********************************
+/**********************************
 Purpose : To find out and display the Mean and Standard Deviation of the Columns of a given dataset text
 Authors : Kirtan Patel(AE19B038)
 Date    : 20/08/2020
 Input   : Datafile named 'dataset.txt' present in the same directory as the code file
 Output  : Column-wise Mean and Standard Deviation 
-*************************************/
+************************************/
 
 /***********************************
 int main() : primary executed function
