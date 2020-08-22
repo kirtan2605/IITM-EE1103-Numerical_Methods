@@ -52,9 +52,5 @@ int main()
 
 	}
 
-	//const int system();
-	//system("cat data.txt");
-	
-	
 	return 0;
 }
