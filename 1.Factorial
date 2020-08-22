@@ -21,6 +21,15 @@ fact : stores the value of factorial
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
+
+long fact(int m)                      //declaring factorial method
+   {
+      if(m==1)
+         return(1);
+      else
+         return(m*fact(m-1));        // using recursion to calculate factorial
+   }   
+   
 int main(int argc, char* argv[])     //Accepting command line for input
 {
    float num = atof(argv[1]);
@@ -30,12 +39,8 @@ int main(int argc, char* argv[])     //Accepting command line for input
    	{ 
          if(num>=0 && num-fon==0)           // checking if the input number is an integer
          {
-            for(int i=1; i<=num; i++)            // iterative product calculation for factorial
-            {
-               fact=fact*i;
-            }
-
-            printf("The factorial of %f is %li \n",num,fact);     
+            long factorial= fact(num1);
+            printf("The factorial of %d is %li \n",num1,factorial);     
          } 
 
          else
