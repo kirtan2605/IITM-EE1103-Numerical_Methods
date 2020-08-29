@@ -1,0 +1,112 @@
+//Need to add and change comments
+
+/***********************************
+Purpose : To find out the Factorial of a given positive integer
+Authors : Kirtan Patel(AE19B038)
+Date    : 12/08/2020
+Input   : Number whose Factorial is to be calculated
+Output  : Factorial of the Number if it is a positive integer
+*************************************/
+
+/***********************************
+arc : number of input on command line
+argv[] : Array of characters to save command line input
+num : stores number input for factorial calculation by user
+fon : Acronym for 'Floor of Num'. Stores Floot value of Num
+fact : stores the value of factorial
+*************************************/
+
+/*********Usage : Compile using 'gcc factorial_new.c -lm -o factorial'*************/
+/*****Usage : To get answer , enter "./factorial *number*" to get the factorial*****/
+
+//Storing Data in one byte
+
+//Storing Data in one byte
+//Header files and initial declarations
+
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+#include <time.h>
+int target_bitsize = 0;
+// C Program for the binary representation of a given number 
+int int_to_binary(int n) 
+{   int power=0;
+    
+    long long int bin=0;
+    while (n!=0)
+    {   target_bitsize++;
+        bin=bin+((n%2)*pow(10,power));
+        n=(int)n/2;
+        power++;
+    }   
+    return bin;   
+} 
+
+  
+int main(int argc, char* argv[])     //Accepting command line for input
+{   srand(time(NULL));
+    int c_bits = atoi(argv[1]);
+    char collection[c_bits];
+    int num = atoi(argv[2]);
+    long long int binary=int_to_binary(num);
+    char target_string[target_bitsize];
+    sprintf(target_string, "%lli", binary);
+    printf("%lli\n",binary);
+    printf("Target bitsize: %d\n",target_bitsize);
+   collection[0]='\0';  //VERY IMPORTANT otherwise there will be an error in the string collection
+   //When you initialize a variable, a random value is assigned to it depending on the compiler
+    //so assigning "\0" in a way clears the string since \0 is an end string character */
+   for(int i=0;i<c_bits;i++)
+   {
+    char add_bit = rand()%2+'0';
+    strncat(collection,&add_bit,1);
+   }
+   printf("COLLECTION STARTS HERE: \n");
+   printf("%s\n",collection);
+   printf("COLLECTION ENDS HERE\n");
+    int min_count=0;
+    int positions[c_bits];  //optimize using dynnamic memory
+    int min_ham=num;
+    int position=0;
+ //   int position[]="";  //make dynamic for more than one such value
+      for(int i=0;i<c_bits;i++)
+   {    int ham=0;
+         for(int j=0;j<target_bitsize;j++)
+          {
+            if(collection[i+j]!=target_string[j])
+                {
+                    ham++;
+                }
+             
+          }
+            if(ham==min_ham)
+          {
+              positions[min_count]=i;
+              min_count++;
+          }
+            if(ham<min_ham && ham!=min_ham)
+          {   min_count=0;
+              memset(positions,0,c_bits*sizeof(int));
+              min_ham=ham;
+              positions[min_count]=i;
+              min_count++; 
+
+          }
+
+          printf("\n");
+          printf("%d Hamming Distance from %d index\n",ham,i);
+   }
+
+   printf("%d is the minimum Hamming Distance found in %d groups of %d bits strating from index: ",min_ham,min_count,target_bitsize);
+    for(int i=0;i<min_count;i++)
+    {
+        printf("%d, ",positions[i]);
+    }
+    printf("\n");
+
+   return 0;
+}
+
+   
