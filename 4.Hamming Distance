@@ -1,23 +1,34 @@
-//Need to add and change comments
-
 /***********************************
-Purpose : To find out the Factorial of a given positive integer
+Purpose : To find out the locations within bit array where there is a match or the locations of the minimum Hamming distance
 Authors : Kirtan Patel(AE19B038)
-Date    : 12/08/2020
-Input   : Number whose Factorial is to be calculated
-Output  : Factorial of the Number if it is a positive integer
+Date    : 30/08/2020
+Input   : Size of Bit Array and the Target Number
+Output  : Location with Zero or Minimum Hamming Distance
 *************************************/
 
 /***********************************
 arc : number of input on command line
 argv[] : Array of characters to save command line input
-num : stores number input for factorial calculation by user
-fon : Acronym for 'Floor of Num'. Stores Floot value of Num
-fact : stores the value of factorial
+target_num : stores the number from whom we calculate the hamming distance
+target_bitsize : interger bitsize of the target number
+target_string : stores the target number in binary as a string
+c_bits : stores the size of the bit array as given by user
+power : stores the power used to find binary of a number
+n : takes the value of target number in int_to_binary(int) function
+bin,binary : stores the binary value of the target number
+add_bit : temporarily stores the random bit to be added to the collection
+collection : stores the array of c_bitsize random bits
+i,j : Loop variables
+int_to_binary() : function to convert target number to binary
+min_count : stores numbers of positions with minimum hamming distance
+positions[] : array to store positions with minimum hamming distance
+min_ham : stores the value of minimum hamming system
+ham :  stores hamming distance of current set of bits
+min_count : stores the number of positions with the minimum hamming distance
 *************************************/
 
-/*********Usage : Compile using 'gcc factorial_new.c -lm -o factorial'*************/
-/*****Usage : To get answer , enter "./factorial *number*" to get the factorial*****/
+/*********Usage : Compile using 'gcc Hamming1.c -lm -o hamming'*************/
+/*****enter "./hamming ~size of random bit array~ ~target number~" to get positions of minimum Hamming distance*****/
 
 //Storing Data in one byte
 
@@ -44,69 +55,54 @@ int int_to_binary(int n)
     return bin;   
 } 
 
-  
 int main(int argc, char* argv[])     //Accepting command line for input
-{   srand(time(NULL));
+{   
+    srand(time(NULL));
     int c_bits = atoi(argv[1]);
-    char collection[c_bits];
-    int num = atoi(argv[2]);
-    long long int binary=int_to_binary(num);
-    char target_string[target_bitsize];
-    sprintf(target_string, "%lli", binary);
-    printf("%lli\n",binary);
-    printf("Target bitsize: %d\n",target_bitsize);
-   collection[0]='\0';  //VERY IMPORTANT otherwise there will be an error in the string collection
-   //When you initialize a variable, a random value is assigned to it depending on the compiler
-    //so assigning "\0" in a way clears the string since \0 is an end string character */
+    char collection[c_bits];    //creating char array to store random bit collection
+    int target_num = atoi(argv[2]);  //converting target number to integer
+    long long int binary=int_to_binary(target_num);  //finding the binary of the target number
+    char target_string[target_bitsize];   //initializing string to save binary of target number
+    sprintf(target_string, "%lli", binary);   //alloting binary number to string
+    collection[0]='\0';      //clearing the dump value assigned to it
+ 
+    if(c_bits<target_bitsize)   //checking if the desired calculations can be made or not
+    {   printf("Not Possible\n");
+        exit(1);}
+
    for(int i=0;i<c_bits;i++)
    {
-    char add_bit = rand()%2+'0';
-    strncat(collection,&add_bit,1);
-   }
-   printf("COLLECTION STARTS HERE: \n");
-   printf("%s\n",collection);
-   printf("COLLECTION ENDS HERE\n");
-    int min_count=0;
-    int positions[c_bits];  //optimize using dynnamic memory
-    int min_ham=num;
-    int position=0;
- //   int position[]="";  //make dynamic for more than one such value
-      for(int i=0;i<c_bits;i++)
-   {    int ham=0;
-         for(int j=0;j<target_bitsize;j++)
-          {
-            if(collection[i+j]!=target_string[j])
-                {
-                    ham++;
-                }
-             
-          }
-            if(ham==min_ham)
-          {
-              positions[min_count]=i;
-              min_count++;
-          }
-            if(ham<min_ham && ham!=min_ham)
-          {   min_count=0;
-              memset(positions,0,c_bits*sizeof(int));
-              min_ham=ham;
-              positions[min_count]=i;
-              min_count++; 
-
-          }
-
-          printf("\n");
-          printf("%d Hamming Distance from %d index\n",ham,i);
+    char add_bit = rand()%2+'0';   //generating random bit and converting it to char
+    strncat(collection,&add_bit,1);   //adding random bit to collection of bits
    }
 
-   printf("%d is the minimum Hamming Distance found in %d groups of %d bits strating from index: ",min_ham,min_count,target_bitsize);
-    for(int i=0;i<min_count;i++)
-    {
-        printf("%d, ",positions[i]);
+    int min_count=0;  
+    int positions[c_bits];   
+    int min_ham=target_bitsize;   //setting minimum hamming distance to maximum possible hamming distance
+  
+    for(int i=0;i<(c_bits-target_bitsize);i++)   //parsing throufh the collection of random bits
+    {   
+        int ham=0;  //for every set of bits,initializing hamming distance to zero
+        for(int j=0;j<target_bitsize;j++)   //loop to parse through a set of bits = number of bits or target number
+        {  if(collection[i+j]!=target_string[j])  //checking corresponding bits
+                ham++;
+        }
+        if(ham==min_ham)   //if hamming distance is minimum
+        {
+            positions[min_count]=i;   //add that index to positions[] 
+            min_count++;
+        }
+        if(ham<min_ham && ham!=min_ham)   //if hamming distance is less than the minimum
+        {   min_count=0;     //reset minimum hamming distance counter to zero
+            memset(positions,0,c_bits*sizeof(int));    //clear the positions[] array since the initial positions are invalid now
+            min_ham=ham;  //setting minimum hamming distance to current hamming distance
+            positions[min_count]=i;  //addind the current index to the new position[] array
+            min_count++; 
+        }
     }
+    printf("%d is the minimum Hamming Distance found in %d groups of %d bits strating from index: ",min_ham,min_count,target_bitsize);
+    for(int i=0;i<min_count;i++)
+        printf("%d ",positions[i]);
     printf("\n");
-
-   return 0;
+    return 0;
 }
-
-   
