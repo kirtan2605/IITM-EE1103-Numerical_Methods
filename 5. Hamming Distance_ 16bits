@@ -1,7 +1,7 @@
 /***********************************
 Purpose : To find out the locations within bit array where there is a match or the locations of the minimum Hamming distance
 Authors : Kirtan Patel(AE19B038)
-Date    : 30/08/2020
+Date    : 3/09/2020
 Input   : Size of Bit Array and the Target Number
 Output  : Location with Zero or Minimum Hamming Distance
 *************************************/
@@ -12,7 +12,8 @@ target : stores the number from whom we calculate the hamming distance
 collection_size : stores the size of the bit array as given by user
 randombit : temporarily stores the random bit to be added to the collection
 i : Loop variables
-count_1() : function to count the number of 1s in the binary form of the input
+hammingdistance(int,int) : function to find out the hamming distance for the given input pair
+num1,num2 : store the value of numbers to be used in hammingdistance()
 min_count : stores numbers of positions with minimum hamming distance
 positions[] : integer pointer to store positions with minimum hamming distance
 min_Hamming : stores the value of minimum hamming system
@@ -25,8 +26,9 @@ num : stores the initially generated random number
 /*********Usage : Compile using 'gcc Hamming.c -lm -o hamming'*************/
 /*****enter "./hamming ~size of random bit array~ ~target number~" to get positions of minimum Hamming distance*****/
 
-//Header files and initial declarations
+//IMPORTANT NOTE: Since we're using only 16 bits the Target Number should be from 0 to 65,535
 
+//Header files and initial declarations
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -34,16 +36,17 @@ num : stores the initially generated random number
 #include <time.h>
 
 
-int count_1(int to_count)       
-{
+int hammingdistance(int num1,int num2)       
+{   int to_count=0;
     int count=0;
-    while(to_count!=0)
-    { 
+    to_count=(num1^num2);       //XOR gives 1 for positions with difference in bits for 2 numbers
+    while(to_count!=0)          //We then count the number of 1s in the XOR of the 2 numbers
+    {                           //Number of 1s is the Hamming Distance for the pair of numbers
         if((to_count%2)==1)
             count++;
         to_count=floor(to_count/2);
     }
-    return count;       //returns the number of 1s in the binary form of the input
+    return count;       //returns the number of 1s in the XOR i.e the Hamming Distance
 }
 
 int main(int argc, char* argv[])        //Accepting command line for input
@@ -58,9 +61,8 @@ int main(int argc, char* argv[])        //Accepting command line for input
      int num=rand()%65536;      //assign a random  starting number for 8 bit //turns out int is not 8 bit its 4 byte
     for(int i=0;i<collection_size-15;i++)
     {  
-        int Ham=count_1(num^target);    //XOR gives 1 for positions with difference in bits for 2 numbers
-                                        //We then count the number of 1s using the count_1().
-                                        // Number of 1s is the Hamming Distance
+        int Ham=hammingdistance(num,target); 
+
         if(Ham==min_Hamming)
         {   size++;
             positions=realloc(positions,(size)*sizeof(int));        //increasing size of to store more positions
