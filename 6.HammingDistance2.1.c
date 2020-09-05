@@ -46,8 +46,7 @@ int hammingdistance(int num1,int num2)
     to_count=(num1^num2);       //XOR gives 1 for positions with difference in bits for 2 numbers
     while(to_count!=0)          //We then count the number of 1s in the XOR of the 2 numbers
     {                           //Number of 1s is the Hamming Distance for the pair of numbers
-        if((to_count%2)==1)
-            count++;
+        count=count+to_count%2;
         to_count=floor(to_count/2);
     }
     return count;       //returns the number of 1s in the XOR i.e the Hamming Distance
