@@ -30,8 +30,6 @@ e_squared : stores the value of squared error
 /*********Usage : Compile using 'gcc Linear_Interpolation.c -lm -o epsilon'*************/
 /*****Usage : enter "./epsilon ~filepath~ ~Downsampling Constant~"  to get the columnwise Mean and Standard Deviation*****/
 
-//*********IMPORTANT AF**********WHILE CHANGING BACK TO FILE PATH CHANGE Ds_C=argv[2]
-
 
 //Header files and initial declarations
 #include <stdio.h>
@@ -147,13 +145,13 @@ int Print_Elements()
     return 0;    
 }
 
-int main(int argc,char *argv[])  //taking filepath arguement NOTE:Code works even for oversized Data file
+int main(int argc,char *argv[])  //taking filepath arguement NOTE:Code works even for oversized Data file i.e if columns > 2
 {	
 
 	/***CODE TO READ THE DATA FROM THE FILE AND SAVE IT IN AN ARRAY***/
 
 	FILE* fptr;
-	fptr=fopen("Data_new.txt","r");   //opening file 
+	fptr=fopen(argv[1],"r");   //opening file 
 	if(fptr==NULL)          //checking if file exist or filepath is correct
 	{
  		printf("FILE NOT VALID");   //printing error message
@@ -205,12 +203,10 @@ int main(int argc,char *argv[])  //taking filepath arguement NOTE:Code works eve
     x_true=(double*)realloc(x_true,(size)*sizeof(double));	//optimizing space by discarding excess memory
     y_true=(double*)realloc(y_true,(size)*sizeof(double)); 
 
-	Ds_c = atoi(argv[1]);  //Take Dsc=DownSampling_Constant from the user
+	Ds_c = atoi(argv[2]);  //Take Dsc=DownSampling_Constant from the user
 
     Downsample();
-    
-	Interpolate();
-
+    Interpolate();
     e2();
 
     //Print_Elements();
