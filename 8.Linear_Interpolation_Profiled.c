@@ -61,13 +61,7 @@ int e2()
 
 int Downsample()
 {	
-	for(long long int timer=0;timer<9258022547;timer++)
-	{
-		continue;	
-	}
-
     //CODE TO DOWNSAMPLE THE DATA
-
 
 	if(Ds_c>=size)          //checking if the Downsampling is possible
 	{	printf("Cannot Downsample so much\n");   //printing error message
