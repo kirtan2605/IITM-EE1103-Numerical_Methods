@@ -41,11 +41,6 @@ lowertriangle[][] : stores the lower triangular matrix
 //Logic to find piece-wise cubic spline inspired from the following page:
 //https://towardsdatascience.com/numerical-interpolation-natural-cubic-spline-52c1157b98ac
 
-/*********Usage : Compile using 'gcc Linear_Interpolation.c -lm -o epsilon'*************/
-/*****Usage : enter "./epsilon ~filepath~ ~Downsampling Constant~"*****/
-
-
-
 /***** Usage : Compile using 'gcc Cubic_Interpolation_LU.c -lm -o CLU ' ********/
 /***** Usage : enter "./epsilon ~filepath~ ~Downsampling Constant~" *****/
 
