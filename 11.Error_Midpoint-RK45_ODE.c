@@ -1,3 +1,7 @@
+/****
+This program finds the Error in each iteration between the values obtained for that iteration by solving the ODE using Midpoint Method and 4th Order Runge Kutta Method
+****/
+
 #include<stdio.h>
 #include<stdlib.h>
 #include<math.h>
