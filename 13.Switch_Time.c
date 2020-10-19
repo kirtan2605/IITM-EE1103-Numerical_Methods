@@ -1,3 +1,8 @@
+/****
+This program calculates the time taken by magnetic dipole <m> to switch it's orientation after an external opposite field <H> is applied to it.
+The <.> notation is used to represent vector 
+****/
+
 #include<stdio.h>
 #include<stdlib.h>
 #include<math.h>
