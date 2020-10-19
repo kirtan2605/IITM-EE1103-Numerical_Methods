@@ -3,7 +3,7 @@ Purpose : Interpolation Error
 Authors : Kirtan Patel(AE19B038)
 Date    : 29/09/2020
 Input   : File Path, Downsampling Constant
-Output  : The Squared Error for the Input Downsampling Constant
+Output  : The Squared Error between actual and interpolated data values ,for the Input Downsampling Constant
 *************************************/
 
 /***
