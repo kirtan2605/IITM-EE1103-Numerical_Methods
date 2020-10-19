@@ -1,3 +1,7 @@
+/****
+This program find the RMS Error between the values obtained by solving the ODE using Midpoint Method and 4th Order Runge Kutta Method
+****/
+
 #include<stdio.h>
 #include<stdlib.h>
 #include<math.h>
